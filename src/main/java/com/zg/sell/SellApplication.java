@@ -11,6 +11,7 @@ public class SellApplication {
         System.out.println("zhanggang");
         System.out.println("testgit");
         System.err.println("testgit2");
+        System.out.println("test git3");
     }
 
 }
