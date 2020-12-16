@@ -2,6 +2,18 @@ create database sell character set utf8mb4 collate utf8mb4_general_ci
 
 use sell
 
+create table ay_user(
+    id varchar(32) not null ,
+    name varchar(10) not null ,
+    password varchar(32) default  null
+)
+
+insert into ay_user values(1,'zg','111'),('2','zt',222)
+
+select * from ay_user
+
+
+
 --表设计：
 -- 类目
 create table `product_category` (
