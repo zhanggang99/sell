@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class httpclientController {
 
-    @GetMapping("dohttpclienttest")
+    @GetMapping("/dohttpclienttest")
     public String doGetClientTest(){
         return "dohttpclienttest";
     }
