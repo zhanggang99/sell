@@ -10,6 +10,7 @@ public class SellApplication {
         SpringApplication.run(SellApplication.class, args);
         System.out.println("zhanggang");
         System.out.println("testgit");
+        System.err.println("testgit2");
     }
 
 }
