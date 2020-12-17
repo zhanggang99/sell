@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.util.Assert;
 
@@ -49,16 +50,32 @@ class UserServiceImplTest {
     void delete() {
     }
 
+//    @Test
+//    void testFindAll() {
+//        Sort.Order idOrder = new Sort.Order(Sort.Direction.ASC,"id");
+//        Sort.Order nameOrder = new Sort.Order(Sort.Direction.DESC,"name");
+//        //Sort.Direction direction = new Sort.Direction();
+//        Sort sort=new Sort(idOrder,nameOrder);
+//        Pageable pageable = new PageRequest(0,1,idOrder);
+//        Page<User> findAll =null;
+//        List<User> content=null;
+//        while (pageable!=null){
+//            findAll=userService.findAll(pageable);
+//            content=findAll.getContent();
+//            System.out.println("content:"+content);
+//            pageable=findAll.nextPageable();
+//        }
+//    }
     @Test
     void testFindAll() {
-        //PageRequest pageRequest=new PageRequest(0,1,new Sort(Sort.Direction.ASC,"id"));
         PageRequest pageRequest = PageRequest.of(0,1);
         Page<User> userPage=userService.findAll(pageRequest);
         System.out.println("分页查询有数据几个："+userPage.getSize());
-        userPage.forEach(user ->{
-            System.out.println(user.toString());
-        });
+                userPage.forEach(user ->{
+                    System.out.println(user.toString());
+                });
     }
+
 
     @Test
     void findByName() {
