@@ -38,7 +38,7 @@ class UserServiceImplTest {
     //保存或更新
     @Test
     void save() {
-        User user = new User("4","miaomiao","6");
+        User user = new User("44","aomo","60");
         Assert.notNull(userService.save(user),"保存成功");
     }
 

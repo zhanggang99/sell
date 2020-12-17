@@ -6,12 +6,14 @@ import com.zg.sell.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Resource
@@ -29,7 +31,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user) {
-        return userRepository.save(user);
+        User u = userRepository.save(user);
+        //抛出异常，回滚
+        //String str = null;
+        //str.split("/");
+        return u;
     }
 
     @Override
