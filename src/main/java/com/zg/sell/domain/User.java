@@ -1,7 +1,13 @@
 package com.zg.sell.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="ay_user")
 public class User {
+    @Id
     private String id;
     private String name;
     private String password;
@@ -28,6 +34,9 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User() {
     }
 
     public User(String id, String name, String password) {
