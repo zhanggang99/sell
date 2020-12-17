@@ -4,6 +4,7 @@ import com.zg.sell.domain.User;
 import com.zg.sell.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,13 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
-import javax.persistence.Id;
-import javax.sound.midi.Soundbank;
-
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -66,6 +62,26 @@ class UserServiceImplTest {
 //            pageable=findAll.nextPageable();
 //        }
 //    }
+
+    @Test
+    void testFindAllSort(){
+        Sort.Order idOrder = new Sort.Order(Sort.Direction.DESC, "id");
+        List<Sort.Order> orders = new ArrayList<>();
+        orders.add(idOrder);
+
+        //示例：
+        //Sort sort = Sort.by(Sort.Order.desc("create_date"));
+        //Pageable pageable =PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), sort);
+
+        //Sort sort = new Sort(orders);
+        Sort sort = Sort.by(Sort.Order.desc("id"));
+        Pageable pageable=PageRequest.of(0,2,sort);
+        Page<User> users = userService.findAll(pageable);
+        users.forEach(user -> {
+            System.out.println("1111:"+user.toString());
+        });
+    }
+
     @Test
     void testFindAll() {
         PageRequest pageRequest = PageRequest.of(0,1);
