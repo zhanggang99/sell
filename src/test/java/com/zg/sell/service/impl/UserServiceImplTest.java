@@ -68,12 +68,6 @@ class UserServiceImplTest {
         Sort.Order idOrder = new Sort.Order(Sort.Direction.DESC, "id");
         List<Sort.Order> orders = new ArrayList<>();
         orders.add(idOrder);
-
-        //示例：
-        //Sort sort = Sort.by(Sort.Order.desc("create_date"));
-        //Pageable pageable =PageRequest.of(Integer.parseInt(page), Integer.parseInt(size), sort);
-
-        //Sort sort = new Sort(orders);
         Sort sort = Sort.by(Sort.Order.desc("id"));
         Pageable pageable=PageRequest.of(0,2,sort);
         Page<User> users = userService.findAll(pageable);
