@@ -78,7 +78,7 @@ class UserServiceImplTest {
 
     @Test
     void testFindAll() {
-        PageRequest pageRequest = PageRequest.of(0,1);
+        PageRequest pageRequest = PageRequest.of(0,10);
         Page<User> userPage=userService.findAll(pageRequest);
         System.out.println("分页查询有数据几个："+userPage.getSize());
                 userPage.forEach(user ->{
