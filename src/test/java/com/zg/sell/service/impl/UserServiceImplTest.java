@@ -9,9 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,20 @@ class UserServiceImplTest {
 
     @Resource
     private UserService userService;
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Test
     void findById() {
+        Long redisUserSize=0L;
+        User user=userService.findById("4");
+        redisUserSize= redisTemplate.opsForList().size("ALL_USER_LIST");
+        System.out.println("目前缓存用户数："+redisUserSize);
+
+        User userNo = userService.findById("5");
+        System.out.println("name:"+userNo.getName());
+        redisUserSize=redisTemplate.opsForList().size("ALL_USER_LIST");
+        System.out.println("目前缓存用户数："+redisUserSize);
 
     }
 
