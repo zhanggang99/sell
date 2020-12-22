@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l -%m%n"></PatternLayout>
+        </Console>
+        <RollingFile name="RollingFileInfo" filename="D:/info.log"  filePattern="D:/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <Fillter>
+                <ThresholdFilter level="INFO"/>
+            </Fillter>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <root level="info">
+            <AppenderRef ref="Console"></AppenderRef>
+            <AppenderRef ref="RollingFileInfo"></AppenderRef>
+        </root>
+    </Loggers>
+</Configuration>

@@ -2,6 +2,8 @@ package com.zg.sell.service.impl;
 
 import com.zg.sell.domain.User;
 import com.zg.sell.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.annotation.Order;
@@ -20,6 +22,7 @@ import java.util.List;
 @SpringBootTest
 class UserServiceImplTest {
 
+    Logger logger= LogManager.getLogger(this.getClass());
     @Resource
     private UserService userService;
     @Resource
@@ -57,6 +60,8 @@ class UserServiceImplTest {
 
     @Test
     void delete() {
+        userService.delete("5");
+        logger.info("删除用户成功");
     }
 
 //    @Test
