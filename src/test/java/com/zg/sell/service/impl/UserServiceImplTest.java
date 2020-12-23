@@ -116,4 +116,10 @@ class UserServiceImplTest {
     @Test
     void findByIdIn() {
     }
+
+    @Test
+    void testMybatis(){
+        User user = userService.findByNameAndPassword("zt","222");
+        logger.info(user.getId()+user.getName()+"找到了");
+    }
 }

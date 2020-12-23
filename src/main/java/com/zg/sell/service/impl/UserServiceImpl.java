@@ -1,5 +1,6 @@
 package com.zg.sell.service.impl;
 
+import com.zg.sell.dao.UserDao;
 import com.zg.sell.domain.User;
 import com.zg.sell.repository.UserRepository;
 import com.zg.sell.service.UserService;
@@ -83,6 +84,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findByIdIn(Collection<String> ids) {
         return userRepository.findByIdIn(ids);
+    }
+
+    @Resource
+    private UserDao userDao;
+    @Override
+    public User findByNameAndPassword(String name, String password) {
+        return userDao.findByNameAndPassword(name,password);
     }
 
 }

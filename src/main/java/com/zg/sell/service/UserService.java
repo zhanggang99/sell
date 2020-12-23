@@ -19,4 +19,8 @@ public interface UserService {
     List<User> findByName(String name);
     List<User> findByNameLike(String name);
     List<User> findByIdIn(Collection<String> ids);
+
+    //mybatis 方式
+    User findByNameAndPassword(String name,String password);
+
 }

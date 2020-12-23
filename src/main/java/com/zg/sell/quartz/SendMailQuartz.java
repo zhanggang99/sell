@@ -29,7 +29,7 @@ public class SendMailQuartz {
         List<User> userList=userService.findAll();
         if (userList==null || userList.size()<=0)
             return;
-        sendJunkMailService.sendJunkMail(userList);
+        //sendJunkMailService.sendJunkMail(userList);  避免一直发邮件
         logger.info("每5秒执行一次。。。2");
     }
 }
