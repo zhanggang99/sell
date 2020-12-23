@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -121,5 +122,33 @@ class UserServiceImplTest {
     void testMybatis(){
         User user = userService.findByNameAndPassword("zt","222");
         logger.info(user.getId()+user.getName()+"找到了");
+    }
+    //测试三次同步调用的耗时
+    @Test
+    public void testAsync(){
+        long start = System.currentTimeMillis();
+        userService.findAll();
+        userService.findAll();
+        userService.findAll();
+        long end = System.currentTimeMillis();
+        System.out.println("总耗时："+(end-start)+"毫秒");
+    }
+
+    //测试三次异步调用的耗时
+    @Test
+    public void testAsync2() throws InterruptedException {
+        long start = System.currentTimeMillis();
+        Future<List<User>> userlist = userService.findAsynAll();
+        Future<List<User>> userlist2 = userService.findAsynAll();
+        Future<List<User>> userlist3 = userService.findAsynAll();
+        while (true){
+            if (userlist.isDone() && userlist2.isDone() && userlist3.isDone())
+                break;
+            else
+                Thread.sleep(10);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("总耗时："+(end-start)+"毫秒");
+
     }
 }

@@ -7,12 +7,16 @@ import com.zg.sell.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 @Transactional
@@ -49,7 +53,19 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        return userRepository.findAll();
+        try {
+            System.out.println("开始做任务：");
+            long start = System.currentTimeMillis();
+            List<User> userList=userRepository.findAll();
+            long end = System.currentTimeMillis();
+            System.out.println("完成任务，耗时："+(end-start)+"毫秒！");
+            return userList;
+        }catch (Exception e){
+            System.out.println("error:"+e);
+            return Collections.EMPTY_LIST;
+        }
+
+        //return userRepository.findAll(); 同步方法
     }
 
     @Override
@@ -91,6 +107,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByNameAndPassword(String name, String password) {
         return userDao.findByNameAndPassword(name,password);
+    }
+
+    @Override
+    @Async
+    public Future<List<User>> findAsynAll() {
+        try {
+            System.out.println("开始做任务（异步）");
+            long start = System.currentTimeMillis();
+            List<User> userList=userRepository.findAll();
+            long end = System.currentTimeMillis();
+            System.out.println("完成任务（异步），耗时："+(end-start)+"毫秒");
+            return new AsyncResult<List<User>>(userList);
+        }catch (Exception e){
+            System.out.println("error:"+e);
+            return new AsyncResult<List<User>>(null);
+        }
     }
 
 }

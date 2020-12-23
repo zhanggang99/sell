@@ -12,6 +12,19 @@ insert into ay_user values(1,'zg','111'),('2','zt',222)
 
 select * from ay_user
 
+--消耗表
+drop table if exists mood;
+create table mood(
+    id varchar(32) not null ,
+    content varchar(256) default  null,
+    user_id varchar(32) default  null,
+    praise_num int(11) default  null,
+    public_time datetime default  null,
+    primary key (id),
+    key mood_user_id_index (user_id) using btree
+) engine =Innodb default charset =utf8
+
+
 
 
 --表设计：

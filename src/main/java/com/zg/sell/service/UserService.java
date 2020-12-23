@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Future;
 
 public interface UserService {
     User findById(String id);
@@ -22,5 +23,6 @@ public interface UserService {
 
     //mybatis 方式
     User findByNameAndPassword(String name,String password);
-
+    //异步查询
+    Future<List<User>> findAsynAll();
 }
