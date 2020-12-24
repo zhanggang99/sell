@@ -3,9 +3,11 @@ package com.zg.sell.controller;
 import com.zg.sell.domain.Employee;
 import com.zg.sell.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.Name;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,8 +27,21 @@ public class EmployeeController {
 //    }
 
     //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
+//    @PostMapping("/add")
+//    public Employee addEmployee(Employee employee){
+//        return employeeRepository.save(employee);
+//    }
+//
+    //通过设置属性的注解，来帮过滤并提示。
+    //
+    //同时参数前要加 @Valid。表示验证这个对象。同时对于有错误时，错误信息会存到bingingresult对象中。做为判断，出错return null。
     @PostMapping("/add")
-    public Employee addEmployee(Employee employee){
+    public Employee addEmployee(@Valid Employee employee, BindingResult bindingResult){
+        if (bindingResult.hasErrors())
+        {
+            System.out.println("保存出错");
+            return null;
+        }
         return employeeRepository.save(employee);
     }
 

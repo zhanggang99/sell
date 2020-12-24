@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 
 @Entity
@@ -16,7 +17,7 @@ public class Employee implements Serializable {
     @GeneratedValue
     private Integer id;
     private String name;
-    
+    @Min(value = 18,message = "小于18不可以")
     private Integer age;
 
     public Employee(String name, Integer age) {
