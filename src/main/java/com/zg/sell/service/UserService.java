@@ -25,4 +25,5 @@ public interface UserService {
     User findByNameAndPassword(String name,String password);
     //异步查询
     Future<List<User>> findAsynAll();
+    User findByNameAndPasswordRetry(String name,String password);
 }

@@ -2,11 +2,14 @@ package com.zg.sell.service.impl;
 
 import com.zg.sell.dao.UserDao;
 import com.zg.sell.domain.User;
+import com.zg.sell.error.BusinessException;
 import com.zg.sell.repository.UserRepository;
 import com.zg.sell.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -123,6 +126,13 @@ public class UserServiceImpl implements UserService {
             System.out.println("error:"+e);
             return new AsyncResult<List<User>>(null);
         }
+    }
+
+    @Override
+    @Retryable(value = {BusinessException.class},maxAttempts = 5,backoff = @Backoff(delay = 5000,multiplier = 2))
+    public User findByNameAndPasswordRetry(String name, String password) {
+        System.out.println("findByNameAndPasswordRetry 方法失败了");
+        throw new BusinessException();
     }
 
 }
