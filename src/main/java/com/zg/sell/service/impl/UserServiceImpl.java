@@ -57,11 +57,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         try {
-            System.out.println("开始做任务：");
+            //System.out.println("开始做任务：");
             long start = System.currentTimeMillis();
             List<User> userList=userRepository.findAll();
             long end = System.currentTimeMillis();
-            System.out.println("完成任务，耗时："+(end-start)+"毫秒！");
+            //System.out.println("完成任务，耗时："+(end-start)+"毫秒！");
             return userList;
         }catch (Exception e){
             System.out.println("error:"+e);

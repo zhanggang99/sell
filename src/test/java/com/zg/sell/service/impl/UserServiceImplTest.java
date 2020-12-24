@@ -5,6 +5,7 @@ import com.zg.sell.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
 import javax.sound.midi.Soundbank;
@@ -150,5 +152,13 @@ class UserServiceImplTest {
         long end = System.currentTimeMillis();
         System.out.println("总耗时："+(end-start)+"毫秒");
 
+    }
+
+
+    @Value("${people.name}")
+    private String name;
+    @Test
+    public void getName(){
+        System.out.println(name);
     }
 }

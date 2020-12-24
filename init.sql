@@ -12,6 +12,15 @@ insert into ay_user values(1,'zg','111'),('2','zt',222)
 
 select * from ay_user
 
+
+
+create table employee(
+    id int auto_increment not null ,
+    name varchar(32),
+    age int,
+    primary key (id)
+)
+
 --消耗表
 drop table if exists mood;
 create table mood(

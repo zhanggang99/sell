@@ -117,6 +117,10 @@
             <artifactId>spring-jms</artifactId>
             <version>5.2.12.RELEASE</version>
         </dependency>
+
+
+
+
     </dependencies>
 
     <dependencyManagement>

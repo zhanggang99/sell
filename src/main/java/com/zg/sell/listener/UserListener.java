@@ -12,7 +12,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.util.List;
 
-@WebListener
+//@WebListener
 public class UserListener implements ServletContextListener {
 
     Logger logger= LogManager.getLogger(this.getClass());
@@ -29,14 +29,14 @@ public class UserListener implements ServletContextListener {
         //查询数据库所有有用户
         List<User> userList = userService.findAll();
         //清空缓存中用户数据
-        redisTemplate.delete(ALL_USER);
+       // redisTemplate.delete(ALL_USER);
         //将数据放到redis缓存中
-        redisTemplate.opsForList().leftPushAll(ALL_USER,userList);
+        //redisTemplate.opsForList().leftPushAll(ALL_USER,userList);
 
         //测试：
-        List<User> queryUserList = redisTemplate.opsForList().range(ALL_USER,0,-1);
+        //List<User> queryUserList = redisTemplate.opsForList().range(ALL_USER,0,-1);
         //System.out.println("缓存中的用户数有："+queryUserList.size()+"人");
-        logger.info("缓存中的用户数有："+queryUserList.size()+"人");
+        //logger.info("缓存中的用户数有："+queryUserList.size()+"人");
 
     }
 

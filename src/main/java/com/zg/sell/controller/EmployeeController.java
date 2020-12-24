@@ -1,0 +1,57 @@
+package com.zg.sell.controller;
+
+import com.zg.sell.domain.Employee;
+import com.zg.sell.repository.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.naming.Name;
+import java.util.List;
+
+@RestController
+public class EmployeeController {
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @GetMapping("/all")
+    public List<Employee> getAllEmployee(){
+        return employeeRepository.findAll();
+    }
+
+//    @PostMapping("/add")
+//    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
+//        Employee employee=new Employee(name,age);
+//        return employeeRepository.save(employee);
+//    }
+
+    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
+    @PostMapping("/add")
+    public Employee addEmployee(Employee employee){
+        return employeeRepository.save(employee);
+    }
+
+
+    @GetMapping("/employee/{id}")
+    public Employee findOne(@PathVariable("id") Integer id){
+        System.out.println("id:="+id);
+       return employeeRepository.findById(id).orElse(null);
+    }
+    //更新：body要使用x-www-form-urlencoded类型。
+    @PutMapping("/update/{id}")
+    public Employee update(@PathVariable("id") Integer id,@RequestParam("name") String name,@RequestParam("age") Integer age){
+        Employee employee= new Employee(name,age);
+        employee.setId(id);
+        return employeeRepository.save(employee);
+    }
+    //删除
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable("id") Integer id){
+        employeeRepository.deleteById(id);
+    }
+
+    //扩展：根据年龄查询
+    @GetMapping("/age/{age}")
+    public List<Employee> getByAge(@PathVariable("age") Integer age){
+        return employeeRepository.findByAge(age);
+    }
+}
