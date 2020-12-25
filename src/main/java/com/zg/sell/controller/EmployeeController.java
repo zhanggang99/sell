@@ -1,7 +1,10 @@
 package com.zg.sell.controller;
 
+import com.zg.sell.aspect.HttpAspect;
 import com.zg.sell.domain.Employee;
 import com.zg.sell.repository.EmployeeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +15,15 @@ import java.util.List;
 
 @RestController
 public class EmployeeController {
+
+    private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @GetMapping("/all")
     public List<Employee> getAllEmployee(){
+        logger.info("getall employees");
         return employeeRepository.findAll();
     }
 
@@ -48,7 +55,8 @@ public class EmployeeController {
 
     @GetMapping("/employee/{id}")
     public Employee findOne(@PathVariable("id") Integer id){
-        System.out.println("id:="+id);
+        //System.out.println("id:="+id);
+        logger.info("id:="+id);
        return employeeRepository.findById(id).orElse(null);
     }
     //更新：body要使用x-www-form-urlencoded类型。
