@@ -62,6 +62,8 @@ public class HttpAspect {
     //扩展：获取返回内容（json串）
     @AfterReturning(returning = "object",pointcut = "log()")
     public void doAfterReturning(Object object){
-        logger.info("return={}",object);
+        //异常处理：问题：当添加时，如果没有对某个字段未赋值，则会 返回null，导致后面tostring时，报空引用问题。
+
+        logger.info("return={}",object.toString());
     }
 }
