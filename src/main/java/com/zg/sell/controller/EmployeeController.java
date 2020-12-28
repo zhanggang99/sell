@@ -1,7 +1,13 @@
 package com.zg.sell.controller;
 
+import com.zg.sell.aspect.HttpAspect;
 import com.zg.sell.domain.Employee;
+import com.zg.sell.domain.Result;
 import com.zg.sell.repository.EmployeeRepository;
+import com.zg.sell.service.EmployeeService;
+import com.zg.sell.utils.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -12,20 +18,23 @@ import java.util.List;
 
 @RestController
 public class EmployeeController {
+
+    private final static Logger logger = LoggerFactory.getLogger(EmployeeController.class);
     @Autowired
     private EmployeeRepository employeeRepository;
-
+    @Autowired
+    private EmployeeService employeeService;
     @GetMapping("/all")
     public List<Employee> getAllEmployee(){
-        logger.info("getall employees");
+        //logger.info("getall employees");
         return employeeRepository.findAll();
     }
 
-    @PostMapping("/add")
-    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
-        Employee employee=new Employee(name,age);
-        return employeeRepository.save(employee);
-    }
+//    @PostMapping("/add")
+//    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
+//        Employee employee=new Employee(name,age);
+//        return employeeRepository.save(employee);
+//    }
 
 
 //    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
