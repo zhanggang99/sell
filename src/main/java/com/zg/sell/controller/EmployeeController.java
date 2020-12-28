@@ -20,13 +20,13 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
-//    @PostMapping("/add")
-//    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
-//        Employee employee=new Employee(name,age);
-//        return employeeRepository.save(employee);
-//    }
+    @PostMapping("/add")
+    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
+        Employee employee=new Employee(name,age);
+        return employeeRepository.save(employee);
+    }
 
-    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
+//    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
 //    @PostMapping("/add")
 //    public Employee addEmployee(Employee employee){
 //        return employeeRepository.save(employee);
@@ -35,15 +35,15 @@ public class EmployeeController {
     //通过设置属性的注解，来帮过滤并提示。
     //
     //同时参数前要加 @Valid。表示验证这个对象。同时对于有错误时，错误信息会存到bingingresult对象中。做为判断，出错return null。
-    @PostMapping("/add")
-    public Employee addEmployee(@Valid Employee employee, BindingResult bindingResult){
-        if (bindingResult.hasErrors())
-        {
-            System.out.println("保存出错");
-            return null;
-        }
-        return employeeRepository.save(employee);
-    }
+//    @PostMapping("/add")
+//    public Employee addEmployee(@Valid Employee employee, BindingResult bindingResult){
+//        if (bindingResult.hasErrors())
+//        {
+//            System.out.println("保存出错");
+//            return null;
+//        }
+//        return employeeRepository.save(employee);
+//    }
 
 
     @GetMapping("/employee/{id}")
@@ -70,3 +70,4 @@ public class EmployeeController {
         return employeeRepository.findByAge(age);
     }
 }
+//arthas工具：https://www.bilibili.com/video/BV1MZ4y1p7we?p=1&share_medium=android&share_plat=android&share_source=COPY&share_tag=s_i&timestamp=1593065062&unique_k=Ndnuyb
