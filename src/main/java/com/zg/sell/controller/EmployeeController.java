@@ -21,13 +21,14 @@ public class EmployeeController {
         return employeeRepository.findAll();
     }
 
-//    @PostMapping("/add")
-//    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
-//        Employee employee=new Employee(name,age);
-//        return employeeRepository.save(employee);
-//    }
+    @PostMapping("/add")
+    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
+        Employee employee=new Employee(name,age);
+        return employeeRepository.save(employee);
+    }
 
-    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
+
+//    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
 //    @PostMapping("/add")
 //    public Employee addEmployee(Employee employee){
 //        return employeeRepository.save(employee);
@@ -107,4 +108,5 @@ public class EmployeeController {
         return employeeRepository.findByAge(age);
     }
 }
+//arthas工具：https://www.bilibili.com/video/BV1MZ4y1p7we?p=1&share_medium=android&share_plat=android&share_source=COPY&share_tag=s_i&timestamp=1593065062&unique_k=Ndnuyb
 //arthas工具：https://www.bilibili.com/video/BV1MZ4y1p7we?p=1&share_medium=android&share_plat=android&share_source=COPY&share_tag=s_i&timestamp=1593065062&unique_k=Ndnuyb
