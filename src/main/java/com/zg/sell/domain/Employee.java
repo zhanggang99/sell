@@ -1,12 +1,12 @@
 package com.zg.sell.domain;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Entity

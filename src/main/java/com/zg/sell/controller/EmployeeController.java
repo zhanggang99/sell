@@ -17,16 +17,17 @@ public class EmployeeController {
 
     @GetMapping("/all")
     public List<Employee> getAllEmployee(){
+        logger.info("getall employees");
         return employeeRepository.findAll();
     }
 
-    @PostMapping("/add")
-    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
-        Employee employee=new Employee(name,age);
-        return employeeRepository.save(employee);
-    }
+//    @PostMapping("/add")
+//    public Employee addEmployee(@RequestParam("name") String name,@RequestParam("age") Integer age){
+//        Employee employee=new Employee(name,age);
+//        return employeeRepository.save(employee);
+//    }
 
-//    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
+    //优化：添加调整：由属性改为对象，这样避免属性过多时，参数过多
 //    @PostMapping("/add")
 //    public Employee addEmployee(Employee employee){
 //        return employeeRepository.save(employee);
@@ -45,10 +46,46 @@ public class EmployeeController {
 //        return employeeRepository.save(employee);
 //    }
 
+    //统计处理异常优化
+    @PostMapping("/add")
+    public Result<Employee> addEmployee(@Valid Employee employee, BindingResult bindingResult){
+        Result result = new Result();
+        if (bindingResult.hasErrors()) {
+//            result.setCode(1);
+//            result.setMessage(bindingResult.getFieldError().getDefaultMessage());
+//            result.setData(null);
+            //重构
+           return ResultUtil.error(1, bindingResult.getFieldError().getDefaultMessage());
+        }else{
+//            result.setCode(0);
+//            result.setMessage("成功");
+//            result.setData(employeeRepository.save(employee));
+            //重构
+           return ResultUtil.success(employeeRepository.save(employee));
+        }
+        //return result;
+    }
+
+    //实现年龄判断报异常：/
+//    @GetMapping("/getage/{id}")
+//    public void getage(@PathVariable("Id") Integer id){
+//        Integer age = employeeService.getAge(id);
+//        if(age==1)
+//            System.out.println("小于13");
+//        else if(age==0)
+//            System.out.println("小于18");
+//
+//    }
+    //统一用异常 来处理
+    @GetMapping("/getage/{id}")
+    public void getage(@PathVariable("id") Integer id) throws Exception{
+        employeeService.getAge(id);
+    }
 
     @GetMapping("/employee/{id}")
     public Employee findOne(@PathVariable("id") Integer id){
-        System.out.println("id:="+id);
+        //System.out.println("id:="+id);
+        logger.info("id:="+id);
        return employeeRepository.findById(id).orElse(null);
     }
     //更新：body要使用x-www-form-urlencoded类型。
