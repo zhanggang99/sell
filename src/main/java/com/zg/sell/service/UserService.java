@@ -21,6 +21,8 @@ public interface UserService {
     List<User> findByNameLike(String name);
     List<User> findByIdIn(Collection<String> ids);
 
+    User findByUserName(String name);
+
     //mybatis 方式
     User findByNameAndPassword(String name,String password);
     //异步查询

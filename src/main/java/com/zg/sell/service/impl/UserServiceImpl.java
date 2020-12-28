@@ -105,6 +105,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByIdIn(ids);
     }
 
+    @Override
+    public User findByUserName(String name) {
+       List<User> userList = userRepository.findByName(name);
+       if(userList!=null && userList.size()>0)
+           return userList.get(0);
+       else
+           return null;
+    }
+
     @Resource
     private UserDao userDao;
     @Override

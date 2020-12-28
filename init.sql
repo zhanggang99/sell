@@ -8,6 +8,19 @@ create table ay_user(
     password varchar(32) default  null
 )
 
+
+--角色表
+create table role(
+    id varchar(32) default null,
+    name varchar(255) default null
+);
+--用户角色关联表
+create table user_role_rel(
+    user_id varchar(32) default null,
+    role_id varchar(32) default null
+)
+
+
 insert into ay_user values(1,'zg','111'),('2','zt',222)
 
 select * from ay_user
