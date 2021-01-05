@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         //auth.inMemoryAuthentication().passwordEncoder(passwordEncoder()).withUser("zg").password(passwordEncoder().encode("1")).roles("ADMIN").and().withUser("zt").password(passwordEncoder().encode("2")).roles("USER");
+        //基于user\role验证
         auth.userDetailsService(customUserService()).passwordEncoder(new MyPasswordEncoder());
     }
     private PasswordEncoder passwordEncoder(){
