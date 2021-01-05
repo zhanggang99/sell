@@ -1,11 +1,9 @@
 package com.zg.sell.test;
 
+import jdk.nashorn.internal.runtime.options.Option;
 import lombok.Data;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -89,5 +87,30 @@ public class Student {
         List<Integer> integerList3 = Arrays.asList(1,2,3,4,5).stream()
                 .collect(Collectors.toList());
         System.out.println(integerList3.toString());
+
+        //流数据的获取 findFirst  findFirst 通过API名称可以看出：获取的是流的第一个元素，返回值是一个 Optional
+        Optional<String> first=Arrays.asList("zt","zg","qq","mm").stream().findFirst();
+        System.out.println(first.orElse("kong"));
+
+        //流的匹配 anyMatch / allMatch / noneMatch
+        //anyMatch 任何一个元素匹配，返回 true
+        Boolean flag = Arrays.asList(1,2,3,4,5).stream().anyMatch(each->each>3);
+        System.out.println(flag);
+        //allMatch 所有元素匹配，返回 true
+        flag = Arrays.asList(1,2,3,4,5).stream().allMatch(each->each>3);
+        System.out.println(flag);
+        //noneMatch 没有一个元素匹配，返回 true
+        flag = Arrays.asList(1,2,3,4,5).stream().noneMatch(i->i>10);
+        System.out.println(flag);
+
+
+        //流的规约操作
+        //流统计 summaryStatistics
+        //流的统计这个功能在进行集合数据统计上来说是非常有用的，可以求平均值、最大值、最小值、个数、数据和
+        List<Integer> ints = Arrays.asList(1,2,3,4,5,6);
+        IntSummaryStatistics intSummaryStatistics = ints.stream().mapToInt(e->e).summaryStatistics();
+        System.out.println("max:"+intSummaryStatistics.getMax()+":sum:"+intSummaryStatistics.getSum());
+
+
     }
 }
