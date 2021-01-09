@@ -3,6 +3,8 @@ package com.zg.sell.controller;
 import com.zg.sell.domain.User;
 import com.zg.sell.error.BusinessException;
 import com.zg.sell.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.UsesSunHttpServer;
 import org.springframework.stereotype.Controller;
@@ -12,11 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Resource
     private UserService userService;
 
@@ -52,6 +58,17 @@ public class UserController {
         return "/save";
     }
 
+    @RequestMapping("/userBatchInsert")
+    public String batchInsertUser(){
+
+        List<User> userList=new ArrayList<>();
+        for(int i=0;i<10000;i++){
+            userList.add(new User(String.valueOf(i),"name"+i,"password"+1));
+        }
+        userService.insertUsers(userList);
+        logger.info("插入成功");
+        return "save";
+    }
 
 //    处理参数：
 //    @PatchVariable：获取url中的数据

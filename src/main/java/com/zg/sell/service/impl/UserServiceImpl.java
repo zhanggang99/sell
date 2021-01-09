@@ -122,6 +122,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int insertUsers(List<User> listUser) {
+       return userDao.insertUsers(listUser);
+    }
+
+    @Override
     @Async
     public Future<List<User>> findAsynAll() {
         try {

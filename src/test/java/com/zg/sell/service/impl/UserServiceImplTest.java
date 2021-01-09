@@ -2,6 +2,7 @@ package com.zg.sell.service.impl;
 
 import com.zg.sell.domain.User;
 import com.zg.sell.service.UserService;
+import com.zg.sell.utils.SpringBeanUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @SpringBootTest
-class UserServiceImplTest {
+class UserServiceImplTest implements Runnable {
 
     Logger logger= LogManager.getLogger(this.getClass());
     @Resource
@@ -125,6 +127,36 @@ class UserServiceImplTest {
         User user = userService.findByNameAndPassword("zt","222");
         logger.info(user.getId()+user.getName()+"找到了");
     }
+    void mybaticBatchInsert(){
+     run();
+    }
+    @Test
+    void testMybatisInsert() throws InterruptedException {
+        //不好用？不知道为什么？
+//        Thread t1 = new Thread(new UserServiceImplTest(),"thread1");
+//        t1.start();
+
+
+        List<User> userList=new ArrayList<>();
+        for(int i=0;i<10000;i++){
+            userList.add(new User(String.valueOf(i),"name"+i,"password"+1));
+        }
+        userService.insertUsers(userList);
+        logger.info("插入成功");
+
+//        for (int i=0;i<1;i++){
+//            Thread.sleep(10);
+//            new Thread(()->{
+//                List<User> userList=new ArrayList<>();
+//                for(int j=0;j<10000;j++){
+//                    userList.add(new User(String.valueOf(j),"name"+j,"password"+j));
+//                }
+//                userService.insertUsers(userList);
+//                logger.info("插入成功:"+Thread.currentThread().getName());
+//            },"namei").start();
+//        }
+
+    }
     //测试三次同步调用的耗时
     @Test
     public void testAsync(){
@@ -160,5 +192,21 @@ class UserServiceImplTest {
     @Test
     public void getName(){
         System.out.println(name);
+    }
+
+    @Override
+    public void run() {
+        List<User> userList=new ArrayList<>();
+        for(int i=0;i<10000;i++){
+            userList.add(new User(String.valueOf(i),"name"+i,"password"+1));
+        }
+        userService= SpringBeanUtil.getBean(UserService.class);
+        try {
+            userService.insertUsers(userList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        logger.info("插入成功");
+
     }
 }

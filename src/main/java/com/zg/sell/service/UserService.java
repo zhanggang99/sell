@@ -25,7 +25,10 @@ public interface UserService {
 
     //mybatis 方式
     User findByNameAndPassword(String name,String password);
+    int insertUsers(List<User> listUser);
     //异步查询
     Future<List<User>> findAsynAll();
     User findByNameAndPasswordRetry(String name,String password);
+
+
 }

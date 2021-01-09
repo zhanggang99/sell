@@ -27,7 +27,7 @@ public class UserListener implements ServletContextListener {
         //System.out.println("上下文初始化");
         logger.info("log:上下文初始化");
         //查询数据库所有有用户
-        List<User> userList = userService.findAll();
+//        List<User> userList = userService.findAll();
         //清空缓存中用户数据
        // redisTemplate.delete(ALL_USER);
         //将数据放到redis缓存中

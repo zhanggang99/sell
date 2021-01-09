@@ -16,5 +16,24 @@
             and u.password = #{password}
         </where>
     </select>
+<!--    <insert id="insertUsers" parameterType="java.util.List" useGeneratedKeys="false">-->
+    <insert id="insertUsers" parameterType="list" useGeneratedKeys="false">
+
+        <if test="list.size() > 0 ">
+<!--            INSERT INTO ay_user u-->
+<!--            (u.id,u.name,u.password)-->
+<!--            VALUES-->
+<!--            <foreach collection="userlist" item="item" index="index" separator=",">-->
+<!--                ( #{item.id},#{item.name},#{item.passwrod} )-->
+
+            INSERT INTO ay_user
+            (`id`,`name`,`password`)
+            VALUES
+            <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.id},#{item.name},#{item.password} )
+            </foreach>
+        </if>
+    </insert>
+
 
 </mapper>

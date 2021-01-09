@@ -7,7 +7,9 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
+})
 @ServletComponentScan
 @ImportResource(locations = ("classpath:spring-mvc.xml"))
 @EnableAsync
