@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 @SpringBootTest
-class UserServiceImplTest implements Runnable {
+class UserServiceImplTest {
 
     Logger logger= LogManager.getLogger(this.getClass());
     @Resource
@@ -131,12 +131,10 @@ class UserServiceImplTest implements Runnable {
      run();
     }
     @Test
-    void testMybatisInsert() throws InterruptedException {
+    void testMybatisInsert(){
         //不好用？不知道为什么？
 //        Thread t1 = new Thread(new UserServiceImplTest(),"thread1");
 //        t1.start();
-
-
         List<User> userList=new ArrayList<>();
         for(int i=0;i<10000;i++){
             userList.add(new User(String.valueOf(i),"name"+i,"password"+1));
@@ -194,7 +192,7 @@ class UserServiceImplTest implements Runnable {
         System.out.println(name);
     }
 
-    @Override
+    //@Override
     public void run() {
         List<User> userList=new ArrayList<>();
         for(int i=0;i<10000;i++){
